@@ -2,15 +2,21 @@
 
 namespace App\Http\Controllers;
 
+use App\Train;
 use Illuminate\Http\Request;
 use function EasyWeChat\Kernel\Support\generate_sign;
 use Yansongda\LaravelPay\Facades\Pay;
-use Yansongda\Pay\Log;
 
 class PaymentsController extends Controller
 {
     public function index(){
 
+    }
+    public function show($id){
+        $girl=Girl::where("id",$id)->first();
+        $user= User::find($id);
+        $user->increment('click_count');
+        return $girl;
     }
     public function store(Request $request){
         $code = request('code', '1');
@@ -20,10 +26,11 @@ class PaymentsController extends Controller
             return $this->response->errorUnauthorized('code已过期或不正确');
         }
         $weappOpenid = $data['openid'];
+        $train=Train::where("id",request('id', ''))->first();
         $order = [
             'out_trade_no' => time(),
             'body' => request('body', '温馨大姐培训收费'),
-            'total_fee' => round(request('total_fee', '1')*100),
+            'total_fee' => round($train['price']*100),
             'trade_type'   => 'JSAPI',  // 必须为JSAPI
             'openid' => $weappOpenid,
         ];
@@ -57,4 +64,5 @@ class PaymentsController extends Controller
             return $result;
         }
     }
+
 }

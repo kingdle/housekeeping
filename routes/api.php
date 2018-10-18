@@ -40,9 +40,11 @@ Route::group(['prefix' => '/v1', 'middleware' => 'cors'], function () {
     //products项目分类
     Route::resource('/products', 'ProductsController');
     //trains报名表
-    Route::resource('/trains', 'TrainsController');
+    Route::resource('/trains', 'TrainsController')->middleware('auth:api');
+    Route::post('/train/isPay', 'TrainsController@isPay')->middleware('auth:api');
+
     //付款表
-    Route::resource('/payments', 'PaymentsController');
+    Route::resource('/payments', 'PaymentsController')->middleware('auth:api');
     //报名分类
     Route::get('/product/trainList', 'ProductsController@trainList');
     //configs控制信息

@@ -13,7 +13,10 @@ class ProductsController extends Controller
     public function trainList(){
         return Product::where("status_type",'0')->get();
     }
-    public function show(Product $product){
-        return $product;
+    public function show($id){
+        $girl=Girl::where("id",$id)->first();
+        $user= User::find($id);
+        $user->increment('click_count');
+        return $girl;
     }
 }
