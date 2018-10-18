@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use function EasyWeChat\Kernel\Support\generate_sign;
-use Yansongda\Pay\Pay;
+use Yansongda\LaravelPay\Facades\Pay;
+use Yansongda\Pay\Log;
 
 class PaymentsController extends Controller
 {
@@ -22,10 +23,12 @@ class PaymentsController extends Controller
         $order = [
             'out_trade_no' => time(),
             'body' => request('body', '温馨大姐培训收费'),
-            'total_fee'      => request('total_fee', '1'),
+            'total_fee' => round(request('total_fee', '1')),
+            'trade_type'   => 'JSAPI',  // 必须为JSAPI
             'openid' => $weappOpenid,
         ];
-        $result = \Yansongda\LaravelPay\Facades\Pay::wechat()->miniapp($order);
+        $result = Pay::wechat()->miniapp($order);
+
 //        $payment = \EasyWeChat::payment(); // 微信支付
 //        $result = $payment->order->unify([
 //            'body'         => request('body', '温馨大姐培训收费'),

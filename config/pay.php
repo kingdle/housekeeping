@@ -65,6 +65,6 @@ return [
         // optional
         // 'dev' 时为沙箱模式
         // 'hk' 时为东南亚节点
-        // 'mode' => 'dev',
+//         'mode' => 'dev',
     ],
 ];
