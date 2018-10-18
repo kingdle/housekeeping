@@ -23,7 +23,7 @@ class PaymentsController extends Controller
         $order = [
             'out_trade_no' => time(),
             'body' => request('body', '温馨大姐培训收费'),
-            'total_fee' => round(request('total_fee', '1')),
+            'total_fee' => round(request('total_fee', '1')*100),
             'trade_type'   => 'JSAPI',  // 必须为JSAPI
             'openid' => $weappOpenid,
         ];
