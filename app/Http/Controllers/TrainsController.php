@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\TrainCollection;
+use App\Payment;
 use App\Train;
 use App\User;
 use Auth;
@@ -10,8 +12,8 @@ use Illuminate\Http\Request;
 class TrainsController extends Controller
 {
     public function index(){
-        $girls=Train::with('user')->where("is_hidden",'F')->orderBy('id', 'desc')->paginate(9);
-        return new GirlCollection($girls);
+        $trains=Train::with('user')->where("is_hidden",'F')->orderBy('id', 'desc')->paginate(9);
+        return new TrainCollection($trains);
     }
     public function show($id){
         $train=Train::with('user')->where("user_id",$id)->first();
@@ -31,6 +33,7 @@ class TrainsController extends Controller
             'real_head' => request('real_head', ''),
             'price' => request('price', '0'),
             'address' => request('address', ''),
+            'phone' => request('phone', ''),
             'content' => request('content', ''),
             'is_pay' => request('is_pay', 'F'),
         ]);
@@ -45,9 +48,20 @@ class TrainsController extends Controller
         ], 200);
     }
     public function isPay(Request $request){
+        $userId = Auth::guard('api')->user()->id;
         $train=Train::find(request('id', ''));
         $attributes['is_pay'] = 'T';
         $train->update($attributes);
+        $payment=Payment::create([
+            'user_id' => $userId,
+            'type_id' => $train['product_id'],
+            'customer' => $train['username'],
+            'goods_name' => $train['title'],
+            'number_id' => uniqid(),
+            'total_fee' => $train['price'],
+            'quantity' => $train['period'],
+            'times_at' => now(),
+        ]);
         return $train;
     }
 }
