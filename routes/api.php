@@ -28,6 +28,7 @@ Route::post('/token/refresh', 'Auth\LoginController@refresh');
 Route::group(['prefix' => '/v1', 'middleware' => 'cors'], function () {
 //    Route::resource('/messages', 'MessagesController')->middleware('auth:api');
     Route::resource('/girls', 'GirlsController')->middleware('auth:api');
+    Route::get('/girl/queryByProductId/{id}','GirlsController@queryByProductId')->middleware('auth:api');
     Route::post('/girl/updateEdit', 'GirlsController@updateEdit')->middleware('auth:api');
     Route::get('/girl/examineIndex', 'GirlsController@examineIndex')->middleware('auth:api');
     //上传图片
@@ -42,7 +43,7 @@ Route::group(['prefix' => '/v1', 'middleware' => 'cors'], function () {
     //trains报名表
     Route::resource('/trains', 'TrainsController')->middleware('auth:api');
     Route::post('/train/isPay', 'TrainsController@isPay')->middleware('auth:api');
-
+    Route::post('/train/isPhone', 'TrainsController@isPhone')->middleware('auth:api');
     //付款表
     Route::resource('/payments', 'PaymentsController')->middleware('auth:api');
     //报名分类

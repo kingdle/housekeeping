@@ -12,7 +12,11 @@ use Illuminate\Support\Facades\Storage;
 class GirlsController extends Controller
 {
     public function index(){
-        $girls=Girl::with('user')->where("is_active",'1')->where("is_hidden",'F')->orderBy('id', 'desc')->paginate(9);
+        $girls=Girl::with('user','product')->where("is_active",'1')->where("is_hidden",'F')->orderBy('id', 'desc')->paginate(9);
+        return new GirlCollection($girls);
+    }
+    public function queryByProductId($id){
+        $girls=Girl::with('user','product')->where("product_id",$id)->where("is_active",'1')->where("is_hidden",'F')->orderBy('id', 'desc')->paginate(9);
         return new GirlCollection($girls);
     }
     public function examineIndex(){
@@ -20,7 +24,7 @@ class GirlsController extends Controller
         return new GirlCollection($girls);
     }
     public function show($id){
-        $girl=Girl::with('user')->where("user_id",$id)->first();
+        $girl=Girl::with('user','product')->where("user_id",$id)->first();
         $user= User::find($id);
         $user->increment('click_count');
         return $girl;
