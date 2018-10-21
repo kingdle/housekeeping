@@ -59,7 +59,10 @@ class TrainsController extends Controller
             'id_card_back' => request('id_card_back', ''),
             'real_head' => request('real_head', ''),
             'age' => $age,
-            'native_place' => request('address', ''),
+            'address' => request('address', ''),
+            'address_name' => request('address_name', ''),
+            'latitude' => request('latitude', ''),
+            'longitude' => request('longitude', ''),
             'experience'=> request('experience', ''),
         ]);
         $user = User::find($userId);
