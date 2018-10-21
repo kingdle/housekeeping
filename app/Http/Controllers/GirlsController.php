@@ -48,7 +48,10 @@ class GirlsController extends Controller
             'id_card_back' => request('id_card_back', ''),
             'real_head' => request('real_head', ''),
             'age' => $age,
-            'native_place' => request('native_place', ''),
+            'address' => request('address', ''),
+            'address_name' => request('address_name', ''),
+            'latitude' => request('latitude', ''),
+            'longitude' => request('longitude', ''),
             'education' => request('education', ''),
             'health_card' => request('health_card', ''),
             'level' => request('level', ''),
@@ -97,8 +100,17 @@ class GirlsController extends Controller
         if($request->id_card){
             $attributes['id_card'] = $request->id_card;
         }
-        if($request->native_place){
-            $attributes['native_place'] = $request->native_place;
+        if($request->address){
+            $attributes['address'] = $request->address;
+        }
+        if($request->address_name){
+            $attributes['address_name'] = $request->address_name;
+        }
+        if($request->latitude){
+            $attributes['latitude'] = $request->latitude;
+        }
+        if($request->longitude){
+            $attributes['longitude'] = $request->longitude;
         }
         if($request->education_id){
             $attributes['education_id'] = $request->education_id;

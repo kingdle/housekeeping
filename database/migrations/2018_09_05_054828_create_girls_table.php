@@ -18,7 +18,7 @@ class CreateGirlsTable extends Migration
             $table->unsignedInteger('user_id')->unique()->nullable()->comment('UserId');
             $table->string('number_id')->nullable()->comment('编号');
             $table->string('age')->nullable()->comment('年龄');
-            $table->string('native_place')->nullable()->comment('籍贯');
+            $table->string('address')->nullable()->comment('现住址');
             $table->string('education')->nullable()->comment('学历');
             $table->string('health_card')->nullable()->comment('健康证');
             $table->string('level')->nullable()->comment('级别');

@@ -8,7 +8,7 @@ class Girl extends Model
 {
     protected $fillable = [
         'user_id', 'product_id','number_id','username', 'id_card','id_card_front','id_card_back',
-        'real_head','age','native_place','education_id','education',
+        'real_head','age','address','address_name','native_place','latitude','longitude','education_id','education',
         'health_card','level','price','service_times','experience',
         'pic_count','order_count','published_at','code'
     ];
