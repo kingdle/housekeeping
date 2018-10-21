@@ -65,8 +65,10 @@ Route::group(['prefix' => '/v1', 'middleware' => 'cors'], function () {
     Route::resource('/orders', 'OrdersController')->middleware('auth:api');
     Route::post('/order/queryByStatus', 'OrdersController@queryByStatus')->middleware('auth:api');
     Route::post('/order/queryByCall', 'OrdersController@queryByCall')->middleware('auth:api');
+    Route::post('/order/payment', 'OrdersController@payment')->middleware('auth:api');
+    Route::post('/order/updateFee', 'OrdersController@updateFee')->middleware('auth:api');
+    Route::post('/order/isPay', 'OrdersController@isPay')->middleware('auth:api');
 
-    Route::get('/orders-lists', 'OrdersController@lists')->middleware('auth:api');
     Route::post('/orders-list-size', 'OrdersController@listSize')->middleware('auth:api');
     Route::post('/orders-list-query', 'OrdersController@queryList')->middleware('auth:api');
     Route::get('/orders-query-phone', 'OrdersController@queryPhone')->middleware('auth:api');

@@ -18,7 +18,7 @@ class CreateOrdersTable extends Migration
             $table->string('user_id')->nullable()->comment('发布用户ID');
             $table->string('to_user_id')->nullable()->comment('选中服务人员ID');
             $table->string('product_id')->nullable()->comment('分类ID');
-            $table->decimal('price')->nullable()->comment('参考价');
+            $table->decimal('price')->default('1.00')->comment('参考价');
             $table->text('address')->nullable()->comment('服务地址');
             $table->text('content')->nullable()->comment('服务内容');
             $table->timestamp('times_at')->nullable()->comment('服务开始时间');

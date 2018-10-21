@@ -16,7 +16,7 @@ class AddStatusToOrdersTable extends Migration
         Schema::table('orders', function (Blueprint $table) {
             $table->string('status')->default('0')->after('emergency')->comment('状态');
             $table->string('status_mean')->nullable()->after('status')->comment('状态意思');
-            $table->string('city')->nullable()->after('price')->comment('城市');
+            $table->string('address_full')->nullable()->after('price')->comment('详细地址');
             $table->string('phone')->nullable()->after('address')->comment('联系电话');
         });
     }
