@@ -27,7 +27,7 @@ class GirlsController extends Controller
         $girl=Girl::with('user','product')->where("user_id",$id)->first();
         $user= User::find($id);
         $user->increment('click_count');
-        return $girl;
+        return new \App\Http\Resources\Girl($girl);
     }
     public function admission(Request $request){
         $userId = Auth::guard('api')->user()->id;
