@@ -17,7 +17,7 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name', 'email', 'phone','password','nickname', 'weapp_openid','weapp_session_key', 'union_id','avatar',
-        'avatar_url', 'username','id_card','id_card_url','gender',
+        'avatar_url', 'username','id_card','age','id_card_url','gender',
         'country', 'province','city','city_code','nation_code', 'district', 'latitude', 'longitude', 'location_dir_desc', 'location_title','town', 'street','crossroad','address', 'live_place',
         'language', 'confirmation_token', 'is_active','is_admin','is_hidden','is_subsidy',
         'click_count',

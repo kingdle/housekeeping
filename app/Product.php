@@ -16,6 +16,9 @@ class Product extends Model
     public function trains(){
         return $this->hasMany(Train::class);
     }
+    public function cycles(){
+        return $this->hasMany(Cycle::class);
+    }
     public function orders(){
         return $this->hasMany(Order::class);
     }

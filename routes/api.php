@@ -44,6 +44,10 @@ Route::group(['prefix' => '/v1', 'middleware' => 'cors'], function () {
     Route::resource('/trains', 'TrainsController')->middleware('auth:api');
     Route::post('/train/isPay', 'TrainsController@isPay')->middleware('auth:api');
     Route::post('/train/isPhone', 'TrainsController@isPhone')->middleware('auth:api');
+    Route::get('/train/queryTrain/{id}', 'TrainsController@queryTrain')->middleware('auth:api');
+    Route::get('/train/queryByCycleId/{id}', 'TrainsController@queryByCycleId')->middleware('auth:api');
+
+
     //付款表
     Route::resource('/payments', 'PaymentsController')->middleware('auth:api');
     //报名分类
@@ -59,6 +63,8 @@ Route::group(['prefix' => '/v1', 'middleware' => 'cors'], function () {
     Route::post('/userPhoneUpdate','UsersController@userPhoneUpdate')->middleware('auth:api');
 
     Route::post('/girls/admission','GirlsController@admission')->middleware('auth:api');
+
+    Route::resource('/cycles', 'CyclesController')->middleware('auth:api');
 
 
     //orders订单查询
