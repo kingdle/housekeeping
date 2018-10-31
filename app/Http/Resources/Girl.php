@@ -53,6 +53,39 @@ class Girl extends JsonResource
             $lastname = $this->username;
             $namecall= $this->username;
         }
+        /**
+         * 计算两点地理坐标之间的距离
+         * @param  Decimal $longitude1 起点经度
+         * @param  Decimal $latitude1  起点纬度
+         * @param  Decimal $longitude2 终点经度
+         * @param  Decimal $latitude2  终点纬度
+         * @param  Int     $unit       单位 1:米 2:公里
+         * @param  Int     $decimal    精度 保留小数位数
+         * @return Decimal
+         */
+        $unit = 1;
+        $decimal = 0;
+        $latitude1 = $request->latitude;
+        $latitude2 = $this->latitude;
+        $longitude1 = $request->longitude;
+        $longitude2 = $this->longitude;
+        $EARTH_RADIUS = 6370.996; // 地球半径系数
+        $PI = 3.1415926;
+        $radLat1 = $latitude1 * $PI / 180.0;
+        $radLat2 = $latitude2 * $PI / 180.0;
+        $radLng1 = $longitude1 * $PI / 180.0;
+        $radLng2 = $longitude2 * $PI / 180.0;
+        $a = $radLat1 - $radLat2;
+        $b = $radLng1 - $radLng2;
+        $distance = 2 * asin(sqrt(pow(sin($a / 2), 2) + cos($radLat1) * cos($radLat2) * pow(sin($b / 2), 2)));
+        $distance = $distance * $EARTH_RADIUS*1000;
+        if($distance>1000){
+            $distance = $distance / 1000;
+            $distance = round($distance, $decimal)."公里";
+        }else{
+            $distance = $distance / 10;
+            $distance = round($distance, $decimal)."米";
+        }
         return [
             'id'=>$this->id,
             'user_id'=>$this->user_id,
@@ -86,7 +119,8 @@ class Girl extends JsonResource
             'close_comment'=>$this->close_comment,
             'is_hidden'=>$this->is_hidden,
             'is_active'=>$this->is_active,
-            'created_at'=>$this->created_at->format('Y-m-d H:i'),
+            'distance'=>$distance,
+            'created_at'=>substr($this->created_at,0,10),
             'update_at'=>substr($this->update_at,0,10),
         ];
     }

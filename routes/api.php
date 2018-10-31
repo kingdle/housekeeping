@@ -31,6 +31,7 @@ Route::group(['prefix' => '/v1', 'middleware' => 'cors'], function () {
     Route::get('/girl/queryByProductId/{id}','GirlsController@queryByProductId')->middleware('auth:api');
     Route::post('/girl/updateEdit', 'GirlsController@updateEdit')->middleware('auth:api');
     Route::get('/girl/examineIndex', 'GirlsController@examineIndex')->middleware('auth:api');
+    Route::post('/girl/distanceQuery','GirlsController@distanceQuery')->middleware('auth:api');
     //上传图片
     Route::post('/girl/imageUpload','GirlsController@imageUpload')->middleware('auth:api');
 

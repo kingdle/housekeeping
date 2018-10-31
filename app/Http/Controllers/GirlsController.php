@@ -15,6 +15,23 @@ class GirlsController extends Controller
         $girls=Girl::with('user','product')->where("is_active",'1')->where("is_hidden",'F')->orderBy('id', 'desc')->paginate(9);
         return new GirlCollection($girls);
     }
+    public function distanceQuery(Request $request)
+    {
+        if($request->latitude){
+            $lat = $request->latitude;
+        }else{
+            $lat ='35.960438';
+        }
+        if($request->longitude){
+            $lng = $request->longitude;
+        }else{
+            $lng = '120.183556';
+        }
+        $girls = Girl::with('user','product')->where("is_active",'1')->where("is_hidden",'!=','T')
+            ->selectRaw('id,user_id,product_id,number_id,username,id_card,real_head,age,address,address_name,native_place,latitude,longitude,education_id,education,health_card,level,price,service_times,experience,pic_count,order_count,published_at,code,close_comment,is_hidden,is_active,acos(cos(' . $lat . '*pi()/180 )*cos(latitude*pi()/180)*cos(' . $lng . '*pi()/180 -longitude*pi()/180)+sin(' . $lat . '*pi()/180 )*sin(latitude*pi()/180))*6370996.81  as distance')  //使用原生sql
+            ->orderby("distance","asc")->paginate(9);
+        return new GirlCollection($girls);
+    }
     public function queryByProductId($id){
         $girls=Girl::with('user','product')->where("product_id",$id)->where("is_active",'1')->where("is_hidden",'F')->orderBy('id', 'desc')->paginate(9);
         return new GirlCollection($girls);
