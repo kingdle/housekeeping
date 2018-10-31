@@ -64,7 +64,7 @@ Route::group(['prefix' => '/v1', 'middleware' => 'cors'], function () {
 
     Route::post('/girls/admission','GirlsController@admission')->middleware('auth:api');
 
-    Route::resource('/cycles', 'CyclesController')->middleware('auth:api');
+    Route::resource('/cycles', 'CyclesController');
 
 
     //orders订单查询
