@@ -107,9 +107,12 @@ class TrainsController extends Controller
     public function isPay(Request $request){
         $userId = Auth::guard('api')->user()->id;
         $train=Train::find(request('id', ''));
+        if($request->pay_type){
+            $attributes['pay_type'] = '1';
+        }
         $attributes['is_pay'] = 'T';
         $train->update($attributes);
-        Cycle::where('id', $train['cycle_id'])->increment('enrolments_count');//点赞数加1
+        Cycle::where('id', $train['cycle_id'])->increment('enrolments_count');//报名付费人数加1
         $payment=Payment::create([
             'user_id' => $userId,
             'type_id' => $train['product_id'],

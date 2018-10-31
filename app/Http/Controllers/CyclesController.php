@@ -29,7 +29,7 @@ class CyclesController extends Controller
             'times_at' => request('times_at', ''),
             'times_end' => request('times_end', ''),
             'trains_count' => request('trains_count', ''),
-            'enrolments_count' => request('enrolments_count', ''),
+            'enrolments_count' => request('enrolments_count', '0'),
             'longitude' => request('longitude', ''),
             'latitude' => request('latitude', ''),
             'address' => request('address', ''),
