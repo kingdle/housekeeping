@@ -22,7 +22,7 @@ class TrainsController extends Controller
         return $train;
     }
     public function queryTrain($id){
-        $train=Train::with('product')->where("user_id",$id)->where("is_hidden",'F')->orderBy('id', 'desc')->get();
+        $train=Train::with('product','user')->where("user_id",$id)->where("is_hidden",'F')->orderBy('id', 'desc')->get();
         if($train->isEmpty()){
             $data['status'] = false;
             $data['status_code'] = '502';
