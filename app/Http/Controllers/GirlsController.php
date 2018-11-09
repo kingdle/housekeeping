@@ -103,9 +103,9 @@ class GirlsController extends Controller
     }
     public function updateEdit(Request $request)
     {
-        $girl = Girl::where('user_id',$request->id);
-        $active=$girl->first();
-        if($request->is_active=='1'){
+        $girl = Girl::where('user_id',$request->id)->first();
+        $active=$girl;
+        if($request->is_active!='0'){
             if($active['is_active']=='1'){
                 $data['status'] = false;
                 $data['status_code'] = '502';
