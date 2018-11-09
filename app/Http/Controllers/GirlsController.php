@@ -105,11 +105,13 @@ class GirlsController extends Controller
     {
         $girl = Girl::where('user_id',$request->id);
         $active=$girl->first();
-        if($active['is_active']=='1'){
-            $data['status'] = false;
-            $data['status_code'] = '502';
-            $data['msg'] = '已通过审核，不能修改信息';
-            return json_encode($data);
+        if($request->is_active=='1'){
+            if($active['is_active']=='1'){
+                $data['status'] = false;
+                $data['status_code'] = '502';
+                $data['msg'] = '已通过审核，不能修改信息';
+                return json_encode($data);
+            }
         }
         if($request->username){
             $attributes['username'] = $request->username;
