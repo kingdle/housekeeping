@@ -101,17 +101,34 @@ class GirlsController extends Controller
             ->orderby("distance","asc")->paginate(20);
         return $girls;
     }
+    public function removeIsActive(Request $request)
+    {
+        $girl = Girl::where('user_id',$request->id)->first();
+        if($request->is_active=='0'){
+            $attributes['is_active'] = '0';
+        }
+        $attributes['updated_at'] = now();
+        $success = $girl->update($attributes);
+        if ($success) {
+            $data['status'] = true;
+            $data['status_code'] = '200';
+            $data['girl'] = $girl;
+            return json_encode($data);
+        } else {
+            $data['status'] = false;
+            $data['status_code'] = '502';
+            $data['msg'] = '系统繁忙，请售后再试';
+            return json_encode($data);
+        }
+    }
     public function updateEdit(Request $request)
     {
         $girl = Girl::where('user_id',$request->id)->first();
-        $active=$girl;
-        if($request->is_active!='0'){
-            if($active['is_active']=='1'){
-                $data['status'] = false;
-                $data['status_code'] = '502';
-                $data['msg'] = '已通过审核，不能修改信息';
-                return json_encode($data);
-            }
+        if($girl['is_active']=='1'){
+            $data['status'] = false;
+            $data['status_code'] = '502';
+            $data['msg'] = '已通过审核，不能修改信息';
+            return json_encode($data);
         }
         if($request->username){
             $attributes['username'] = $request->username;
