@@ -77,6 +77,9 @@ class GirlsController extends Controller
             'experience' => request('experience', ''),
         ]);
         $user = User::find($userId);
+        $attributes['latitude'] = request('latitude', '');
+        $attributes['longitude'] = request('longitude', '');
+        $attributes['live_place'] = request('address_name', '');
         $attributes['is_active'] = '1';
         $user->update($attributes);
         return response()->json([
